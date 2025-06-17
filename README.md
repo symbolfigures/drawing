@@ -103,7 +103,6 @@ python tfrecord_reverse.py \
 #### [main.py](train/main.py)  
 Train the model. Provide an output folder. That folder must contain an [options.json](train/options.json) file.
 ```
-export TF_USE_LEGACY_KERAS=1
 python main.py <dir_out>
 ```
 
