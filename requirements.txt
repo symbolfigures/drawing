@@ -1,0 +1,7 @@
+ffmpeg-python
+matplotlib
+numpy
+pillow
+pycuda
+tensorflow[and-cuda]
+tf_keras
