@@ -29,6 +29,9 @@ def training_loop(
 
 	progbar_callback = tf.keras.callbacks.ProgbarLogger(count_mode='steps') # Callback object 2/2
 	progbar_callback.target = epoch_batch_count
+	callback_list = tf.keras.callbacks.CallbackList(
+		callbacks=[checkpoint_callback, progbar_callback],
+		model=generator)
 
 	with strategy.scope():
 		with tf.device('/GPU:0'):
@@ -111,11 +114,12 @@ def training_loop(
 
 	real_image_iter = iter(real_image_dataset)
 	while epoch_i < end_epoch_i:
+		callback_list.on_epoch_begin(epoch_i) # CallbackList
 		all_stat_names = g_stat_names + d_stat_names + ['d_grad_reg', 'epoch']
 		epoch_stats = {key: 0. for key in all_stat_names}
 		epoch_stat_counts = epoch_stats.copy()
 		for batch_i in range(0, epoch_batch_count):
-			progbar_callback.on_train_batch_begin(batch_i) # CallbackList method: batch begin -- record start time
+			callback_list.on_train_batch_begin(batch_i) # CallbackList
 
 			batch_stats = {}
 			d_stats = strategy.run(take_d_classification_step, args=(next(real_image_iter),)) # run discriminator
@@ -136,9 +140,9 @@ def training_loop(
 					(epoch_stat_counts[name] + 1))
 				epoch_stat_counts[name] += 1
 
-			progbar_callback.on_train_batch_end(batch_i, logs=batch_stats) # CallbackList method: batch end -- save checkpoint
+			callback_list.on_train_batch_end(batch_i, logs=batch_stats) # CallbackList
 
-		checkpoint_callback.on_epoch_end(epoch_i, logs=epoch_stats) # CallbackList method: epoch end -- save checkpoint
+		callback_list.on_epoch_end(epoch_i, logs=epoch_stats) # CallbackList
 		epoch_i += 1
 	return epoch_i
 
