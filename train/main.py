@@ -9,7 +9,7 @@ from train import TrainingOptions, TrainingState, train
 from typing import List, Optional
 
 
-def init_training(dir_out, options):
+def init_training(dir_out):
 	strategy = tf.distribute.MirroredStrategy()
 
 	with open(f'{dir_out}/options.json', 'r') as f:
@@ -38,7 +38,7 @@ def resume_training(dir_out, checkpoint_i):
 	strategy = tf.distribute.MirroredStrategy()
 
 	with strategy.scope():
-		filepath = f'{dir_out}/{checkpoint_i}.ckpt'
+		filepath = f'{dir_out}/{checkpoint_i}.checkpoint'
 		with open(filepath, 'rb') as f:
 			state = pickle.loads(f.read())
 		training_state = TrainingState(
@@ -55,10 +55,10 @@ def resume_training(dir_out, checkpoint_i):
 
 def main(dir_out):
 	files = os.listdir(dir_out)
-	checkpoints = [f for f in files if f.endswith('ckpt')]
+	checkpoints = [f for f in files if f.endswith('checkpoint')]
 
 	if not checkpoints:
-		init_training(dir_out, options)
+		init_training(dir_out)
 	else:
 		checkpoint_i = max([int(c.split('.')[0]) for c in checkpoints])
 		resume_training(dir_out, checkpoint_i)

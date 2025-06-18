@@ -107,7 +107,7 @@ class CheckpointStateCallback(tf.keras.callbacks.Callback):
 
 	def on_epoch_end(self, epoch_i: int, logs=None) -> None:
 		self.state.epoch_i = epoch_i + 1
-		filepath = f'{self.dir_out}/{self.state.epoch_i}.ckpt'
+		filepath = f'{self.dir_out}/{self.state.epoch_i}.checkpoint'
 		with open(filepath, 'wb') as f:
 			f.write(pickle.dumps(self.state))
 		print('')
@@ -119,9 +119,6 @@ def train(
 		state: TrainingState
 		) -> None:
 	options = state.options
-
-	# override parameters
-	options.total_sample_count = 40960#4194304
 
 	checkpoint_callback = CheckpointStateCallback(state, dir_out)
 
