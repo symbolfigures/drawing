@@ -159,7 +159,7 @@ python rgba.py \
 #### [mp4.py](gen/mp4.py)  
 Convert a folder full of images to an mp4 video. If the images are at all transparent, include a background image or video.
 ```
-python rgba.py \
+python mp4.py \
     <dir_in> \
     --background=...
 ```
