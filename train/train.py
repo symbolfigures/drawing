@@ -110,7 +110,6 @@ class CheckpointStateCallback(tf.keras.callbacks.Callback):
 		filepath = f'{self.dir_out}/{self.state.epoch_i}.checkpoint'
 		with open(filepath, 'wb') as f:
 			f.write(pickle.dumps(self.state))
-		#print('')
 
 
 def train(
