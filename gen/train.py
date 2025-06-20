@@ -1,3 +1,6 @@
+'''
+Due to the way Pickle works, this needs to be included to load the generator CNN.
+'''
 import functools
 from gan.models import create_generator
 from gan.serialize import deserialize_model, serialize_model

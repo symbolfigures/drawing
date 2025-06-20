@@ -1,14 +1,10 @@
-# creates copies of scans with a grid superimposed
-# to show how they will be cut into tiles
-#
-# the grid is offset by (x,y) values in adjustment.json
-# it needs to be centered over the drawing area
-#
-# edit adjustment.json directly
-# to get the fit right for each scan
-#
-# use --index flag to work a particular scan
-# otherwise they are all worked
+'''
+Creates copies of scans with a grid superimposed to show how they will be cut into tiles.
+The grid is offset by (x,y) values in adjustment.json.
+It needs to be centered over the drawing area.
+Edit adjustment.json directly to get the fit right for each scan.
+Use the --index flag to work a particular scan, otherwise they are all worked.
+'''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
 import json

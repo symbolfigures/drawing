@@ -10,7 +10,7 @@ Two compositional styles are supported:
 - **Spec**: as demonstrated by my Second Study, each page has specimens roughly arranged on a grid, and have vertical and horizontal axes of symmetry. <sup>[1](https://symbolfigures.io/drawing/ex/1_secondstudy.png)</sup>
 - **Blob**: as demonstrated by my Third Study, each page is a continuous and asymmetrical blob of shapes with no apparent orientation. <sup>[2](https://symbolfigures.io/drawing/ex/2_thirdstudy.png)</sup>
 
-The GAN in [train/](train/) is based on an implementation by Brad Klingensmith available in his excellent [Udemy course](https://www.udemy.com/course/high-resolution-generative-adversarial-networks), which is in turn based on [ProGAN](https://arxiv.org/abs/1710.10196) with improvements from [StyleGAN2](https://arxiv.org/abs/1912.04958).
+The GAN in [train/](train/) is based on an implementation by Brad Klingensmith available in his excellent [Udemy course](https://www.udemy.com/course/high-resolution-generative-adversarial-networks), which is in turn based on [ProGAN](https://arxiv.org/abs/1710.10196) with improvements from [StyleGAN2](https://arxiv.org/abs/1912.04958). I wrote the scripts below, and any others I only edited.
 
 ## Setup
 
@@ -121,7 +121,7 @@ Training data:
 Hyperparameters:
 - Transformations through the latent space (animation) continue to improve well after the loss metrics reach their minima.
 - A lower learning rate makes the animation slower, as if the latent space were less dense.
-- beta_1=0.5 optimizes generator loss, but the images are best at beta_1=0.0 
+- beta_1=0.5 optimizes generator loss, but the images are best at beta_1=0.0.
 - From looking at images or animations, it's hard to tell any difference between various latent sizes or weight decay rates.
 
 `cd ..`

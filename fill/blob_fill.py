@@ -1,3 +1,7 @@
+'''
+Automatically identify shapes and fill them with color.
+Optionally blend.
+'''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
 import math

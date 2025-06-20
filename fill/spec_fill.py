@@ -1,3 +1,8 @@
+'''
+Automatically identify shapes and fill them with color.
+Shapes symmetric across vertical or horizontal axes are
+filled with the same color.
+'''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
 import math
@@ -200,7 +205,6 @@ def process(args):
 	draw = ImageDraw.Draw(img)
 
 	origin = (img.width // 2, img.height // 2) # set origin at center of page
-	#max_radius = get_max_radius(img) + 10
 	max_radius = get_max_radius(img, origin) + 10
 	bb = (
 		origin[0] - max_radius,
@@ -208,16 +212,16 @@ def process(args):
 		origin[1] - max_radius,
 		origin[1] + max_radius)
 
-	# mask environment (inside and outside of dilly)
+	# mask environment (inside and outside of specimen)
 	mask = []
 	for p in [(0, 0), (origin[0], origin[1])]:
 		mask.extend(fill_shape(p, (0, 255, 0), img, draw))
 
-	# iterate over points on the dilly
+	# iterate over points on the specimen
 	for radius in range(4, max_radius, 1):
 		points = gen_points(origin, radius)
 		for p in points:
-			#draw.point(p, fill=(255, 0, 0)) # test
+			# draw.point(p, fill=(255, 0, 0)) # test
 			if img.getpixel(p) == (255, 255, 255):
 				fill_if_symmetric(p, img, draw, origin)
 

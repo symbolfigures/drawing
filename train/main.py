@@ -1,3 +1,9 @@
+'''
+Initiate or resume training.
+Output folder must contain an options.json file that has all the hyperparameters
+as seen in TrainingOptions.
+Automatically resumes from latest checkpoint in the output folder.
+'''
 import argparse
 import json
 import os

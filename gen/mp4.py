@@ -5,9 +5,7 @@ from PIL import Image
 
 
 def png_to_mp4(dir_in):
-	'''
-	converts a file full of images to mp4
-	'''
+	# converts a file full of images to mp4
 	dir_out = f'{dir_in}.mp4'
 	(
 		ffmpeg
@@ -18,10 +16,7 @@ def png_to_mp4(dir_in):
 
 
 def png_to_mp4_rgba(dir_in, dir_in_bg, fps=30):
-	'''
-	if images are rgba
-	convert to mp4 with specified background image or video
-	'''
+	# if images are rgba, convert to mp4 with specified background image or video
 	sample = f'{dir_in}/{os.listdir(dir_in)[0]}'
 	assert Image.open(sample).mode == 'RGBA', 'convert foreground to RGBA first!'
 	dir_out = f'{dir_in}.mp4'

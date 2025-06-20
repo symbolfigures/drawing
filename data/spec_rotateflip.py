@@ -1,7 +1,7 @@
 '''
-input a folder of subfolders
-each subfolder has all the tiles for one page
-tiles are rotated and flipped to multiply tile count by 8
+Input a folder of subfolders.
+Each subfolder has all the tiles for one page.
+Tiles are rotated and flipped to multiply tile count by 8.
 '''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
@@ -9,7 +9,7 @@ import os
 from PIL import Image
 
 
-def rotateflip(args):
+def worker(args):
 	dir_in, page = args
 	dir_in = f'{dir_in}/{page}'
 	# postfix existing images with _rf00
@@ -33,8 +33,8 @@ def main(dir_in):
 	pages = os.listdir(dir_in)
 	args = [(dir_in, page) for page in pages]
 	with ProcessPoolExecutor() as executor:
-		executor.map(rotateflip, args)
-	#rotateflip(args[0]) # debug
+		executor.map(worker, args)
+	#worker(args[0]) # debug
 
 
 if __name__ == '__main__':

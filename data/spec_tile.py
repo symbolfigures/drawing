@@ -1,12 +1,11 @@
 '''
-for a set of scanned drawings such that
- drawings are dark on light background
- each page has multiple drawings roughly arranged in a grid
- the grid must be precise enough that a vertical line may be drawn
-  to separate any pair of adjacent columns
-  likewise for rows
-false-flag checks avoid mistaking tiny specs as drawings
- thresholds scale according to resolution and may require fine tuning
+For a set of scanned drawings such that:
+- drawings are dark on light background.
+- each page has multiple drawings roughly arranged in a grid.
+The grid must be precise enough that a vertical line may be drawn
+to separate any pair of adjacent columns. Likewise for rows.
+False flag checks avoid mistaking tiny specs as drawings.
+Thresholds scale according to resolution and may require fine tuning.
 '''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
@@ -74,7 +73,7 @@ def false_flag(img, a, side, b1, b2, thresh=10):
 		x2 = x1
 		px_white = True
 		for y in range(b1, b2):
-			px = rgb_avg(img, a_td, y)#img.getpixel((a_td, y))
+			px = rgb_avg(img, a_td, y)
 			# if any pixels are dark, it's not a false flag
 			if px < 128:
 				px_white = False
@@ -89,7 +88,7 @@ def false_flag(img, a, side, b1, b2, thresh=10):
 		y2 = y1
 		px_white = True
 		for x in range(b1, b2):
-			px = rgb_avg(img, x, a_td)#img.getpixel((x, a_td))
+			px = rgb_avg(img, x, a_td)
 			# if any pixels are dark, it's not a false flag
 			if px < 128:
 				px_white = False
@@ -164,19 +163,18 @@ def get_rows(img, w, h, s):
 
 
 def fit(img, l1, r1, t1, b1):
-	#left
+	# left
 	x = l1
 	px_white = True
 	while px_white:
 		x += 1
 		for y in range(t1, b1):
-			#print(f'(x, y): ({x}, {y})')
 			px = rgb_avg(img, x, y)
 			if px < 128 and not false_flag(img, x, 'left', t1, b1):
 				px_white = False
 				break
 	l2 = x
-	#right
+	# right
 	x = r1
 	px_white = True
 	while px_white:
@@ -187,7 +185,7 @@ def fit(img, l1, r1, t1, b1):
 				px_white = False
 				break
 	r2 = x
-	#top
+	# top
 	y = t1
 	px_white = True
 	while px_white:
@@ -198,7 +196,7 @@ def fit(img, l1, r1, t1, b1):
 				px_white = False
 				break
 	t2 = y
-	#bottom
+	# bottom
 	y = b1
 	px_white = True
 	while px_white:

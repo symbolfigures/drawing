@@ -1,3 +1,7 @@
+'''
+Sends the vector path to the Generator CNN.
+Saves returned images to disk.
+'''
 import argparse
 import math
 import numpy as np

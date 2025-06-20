@@ -55,7 +55,7 @@ def gs_estimate(filepaths, T):
 	P = 0 # total size of .png files
 	for fp in filepaths[:1000]:
 		P += os.path.getsize(fp)
-	# T = G * P / C # .tfrecord size = group size * average .png size
+	# T = G * P / C <=> .tfrecord size = group size * average .png size
 	G = T * C / P # group size
 	return int(G)
 
@@ -64,6 +64,7 @@ def main(dir_in, dir_out, T):
 	os.makedirs(dir_out, exist_ok=True)
 	filepaths = []
 	# dir_in must follow folder tree structure created by tile.py
+	# i.e. 1 layer of subfolders
 	for subdir in os.listdir(dir_in):
 		for filename in os.listdir(f'{dir_in}/{subdir}'):
 			filepaths.append(f'{dir_in}/{subdir}/{filename}')
@@ -72,6 +73,7 @@ def main(dir_in, dir_out, T):
 	args = [(dir_in, x_i, x, dir_out) for x_i, x in enumerate(groups)]
 	with ProcessPoolExecutor() as executor:
 		executor.map(worker, args)
+	#worker(args[0]) # debug
 
 
 if __name__ == '__main__':

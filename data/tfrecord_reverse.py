@@ -1,6 +1,8 @@
-# to validate the .tfrecord files
-# should produce the same .png files that the .tfrecord files were made from
-# however the file names and paths are not preserved
+'''
+To validate the .tfrecord files.
+Should produce the same .png files that the .tfrecord files were made from.
+The file names and paths are not preserved.
+'''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
 import os
@@ -49,6 +51,7 @@ def main(dir_in, dir_out):
 	args = [(dir_in, dir_out, i, f) for i, f in enumerate(filenames)]
 	with ProcessPoolExecutor() as executor:
 		executor.map(worker, args)
+	#worker(args[0]) # debug
 
 
 if __name__ == '__main__':

@@ -11,9 +11,7 @@ import time
 
 
 def random(generator, dir_out, count):
-	'''
-	set of random images, anti-path
-	'''
+	# set of random images, anti-path
 	noise_shape = generator.input_shape[-1]
 	vectors = tf.random.normal((count, noise_shape))
 	generate(generator, vectors, dir_out)
@@ -31,15 +29,13 @@ def bezier_interpolation(p0, p1, p2, p3, p4, frames):
 		    1 * (1 - t)**0 * t**4 * p4
 		)
 		segment.append(B_t)
-		#print(f'segment shape: ({len(segment)}, {len(segment[0])})')
+		# print(f'segment shape: ({len(segment)}, {len(segment[0])})')
 	return segment
 
 
 def bezier(generator, dir_out, segments, frames):
-	'''
-	looping bezier curve
-	each segment of the curve has 5 points from end to end
-	'''
+	# looping bezier curve
+	# each segment of the curve has 5 points from end to end
 	noise_shape = generator.input_shape[-1]
 	noises = tf.random.normal((segments * 3, noise_shape))
 
@@ -81,13 +77,11 @@ def sinewave(seed, frames, periods, a=1.0):
 
 
 def bitloop(generator, dir_out, bs, frames=512):
-	'''
-	input a bitloop having n bits
-	each dimension in the model's latent space is mapped to a bit
-	 bit = 1, the dimension modulates over a sine wave
-	 bit = 0, the dimension is constant
-	waves are plotted on a chart
-	'''
+	# input a bitloop having n bits
+	# each dimension in the model's latent space is mapped to a bit
+	# - bit = 1, the dimension modulates over a sine wave
+	# - bit = 0, the dimension is constant
+	# waves are plotted on a chart
 	dims = generator.input_shape[-1]
 	seeds = np.random.normal(size=(1, dims))
 
@@ -105,11 +99,9 @@ def bitloop(generator, dir_out, bs, frames=512):
 
 
 def period(generator, dir_out, sec=60, fps=30):
-	'''
-	each dimension is assigned a period
-	the period is a random factor of 60
-	they all have the same phase
-	'''
+	# each dimension is assigned a period
+	# the period is a random factor of 60
+	# they all have the same phase
 	dims = generator.input_shape[-1]
 	seeds = np.random.normal(size=(1, dims))
 
@@ -127,11 +119,9 @@ def period(generator, dir_out, sec=60, fps=30):
 
 
 def phase(generator, dir_out, sec=60, fps=30):
-	'''
-	each dimension is assigned a phase
-	they all have the same period
-	the period is the duration of the path
-	'''
+	# each dimension is assigned a phase
+	# they all have the same period
+	# the period is the duration of the path
 	dims = generator.input_shape[-1]
 	seeds = np.random.normal(size=(1, dims))
 

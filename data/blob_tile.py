@@ -1,7 +1,9 @@
-# makes .png images (cuts tiles) of a standard size for training
-# for each scan, tiles are evenly spaced on a grid
-# each tile is rotated at a random angle and perchance flipped
-# hence only works for source material that need not preserve asymmetric features
+'''
+Makes .png images, i.e. cuts tiles, of a standard size for training.
+For each scan, tiles are evenly spaced on a grid.
+Each tile is rotated at a random angle and perchance flipped.
+This only works for source material that need not preserve asymmetric features.
+'''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
 import json
@@ -19,7 +21,7 @@ def worker(args):
 
 	# tiles are cut within the grid set by grid.py
 	# each square in the grid is 1 unit
-	# 1 unit = 256 / 300 square inches.
+	# 1 unit = 256 / 300 square inches
 	# - if dpi=300, then each unit is 256 square pixels and 1 square inch
 	# - if dpi=600, then each unit is 512 square pixels and 1 square inch
 	# - if dpi=1200, then each unit is 1024 square pixels and 1 square inch
@@ -32,10 +34,10 @@ def worker(args):
 	# - if steps=1, then the tile is cropped and takes 1 step to the adjacent cell
 	# - if steps=2, then the tile takes 2 steps, so it is cropped halfway between the two cells
 	# - if steps=16, then the tile takes 16 steps and the adjacent tiles mostly overlap
-	# 1 step is measured in pixels.
+	# 1 step is measured in pixels
 	step = unit // steps
 
-	# adjustment to the grid placement.
+	# adjustment to the grid placement
 	adj_x = adj[i]['x'] * unit
 	adj_y = adj[i]['y'] * unit
 
@@ -46,7 +48,7 @@ def worker(args):
 	# any coordinates within this padded border can define the center of a tile
 	pad = math.sqrt(res**2 + res**2) / 2
 
-	# boundary of crop coordinates.
+	# boundary of crop coordinates
 	box = [
 		int(adj_x + pad), # left
 		int(adj_y + pad), # top
@@ -57,7 +59,7 @@ def worker(args):
 	os.makedirs(f'{dir_out}/{i}', exist_ok=True)
 	img = Image.open(f'{dir_in}/{i}.png')
 
-	# iterate through every row and column.
+	# iterate through every row and column
 	count = 0
 	for y in range(box[1], box[3], step):
 		for x in range(box[0], box[2], step):

@@ -1,11 +1,11 @@
 '''
-rgb to rgba
-input a folder full of rgb images
-output a copy in rgba
- white --> clear
- black --> opaque black
-or with option --color
- black --> opaque color
+RGB to RGBA.
+Input a folder full of rgb images.
+Output a copy in rgba.
+- white --> clear
+- black --> opaque black
+Or with option --color.
+- black --> opaque color
 '''
 import argparse
 from concurrent.futures import ProcessPoolExecutor
