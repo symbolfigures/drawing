@@ -42,20 +42,6 @@ def bitmap(img):
 	return Image.fromarray(array.astype(np.uint8))
 
 
-def get_max_radius1(img, origin):
-	x = 0
-	y = origin[1]
-	while(img.getpixel((x, y)) == (255, 255, 255)):
-		x += 1
-	rad_x = origin[0] - x
-	y = 0
-	x = origin[0]
-	while(img.getpixel((x, y)) == (255, 255, 255)):
-		y += 1
-	rad_y = origin[1] - y
-	return max(rad_x, rad_y)
-
-
 def get_max_radius(img, origin, margin=50):
 	xn, xp, yn, yp = 0, 0, 0, 0
 	(x, y) = origin
