@@ -171,7 +171,7 @@ python rgba.py \
 ```
 
 #### [mp4.py](gen/mp4.py)  
-Convert a folder full of images to an mp4 video. If the images are at all transparent, include a background image or video.
+Convert a folder full of images to an mp4 video. If the images are at all transparent, include a background image or video.<sup>[19](https://symbolfigures.io/drawing/ex/19_glass.png)</sup> <sup>[20](https://symbolfigures.io/drawing/ex/20_glass.mp4)</sup>
 ```
 python mp4.py \
     <dir_in> \
@@ -186,9 +186,9 @@ python mp4.py \
 
 #### [blob_fill.py](fill/blob_fill.py)  
 Given a set of random generated images,
-- fill the shapes with color <sup>[19](https://symbolfigures.io/drawing/ex/19_shape.png)</sup>
-- fill the lines in between <sup>[20](https://symbolfigures.io/drawing/ex/20_line.png)</sup>
-- optionally blend the edges <sup>[21](https://symbolfigures.io/drawing/ex/21_blend.png)</sup>
+- fill the shapes with color <sup>[21](https://symbolfigures.io/drawing/ex/21_shape.png)</sup>
+- fill the lines in between <sup>[22](https://symbolfigures.io/drawing/ex/22_line.png)</sup>
+- optionally blend the edges <sup>[23](https://symbolfigures.io/drawing/ex/23_blend.png)</sup>
 
 By default, colors are picked at random from an input image via `--palette`. The `--overlay` flag picks according to location. To pick the color of a pixel (x, y) in the drawing, it takes the color of the pixel (x, y) in the palette.
 ```
@@ -201,7 +201,7 @@ python blob_fill.py \
 ```
 
 #### [spec_fill.py](fill/spec_fill.py)
-Similar to [blob_fill.py](fill/blob_fill.py) without overlay. Pairs of symmetric shapes are colored the same. <sup>[22](https://symbolfigures.io/drawing/ex/22_spec_fill.png)</sup>
+Similar to [blob_fill.py](fill/blob_fill.py) without overlay. Pairs of symmetric shapes are colored the same. <sup>[24](https://symbolfigures.io/drawing/ex/24_spec_fill.png)</sup>
 ```
 python spec_fill.py \
     <dir_in> \
@@ -218,7 +218,7 @@ python blend.py \
     --dir_out=...
 ```
 
-To produce colored animation, one can generate a set of random images, apply fill and blend, and then train a new model using the images as a synthetic dataset. <sup>[23](https://symbolfigures.io/drawing/ex/23_color_animation.mp4)</sup>
+To produce colored animation, one can generate a set of random images, apply fill and blend, and then train a new model using the images as a synthetic dataset. <sup>[25](https://symbolfigures.io/drawing/ex/25_color_animation.mp4)</sup>
 
 `cd ..`
 
