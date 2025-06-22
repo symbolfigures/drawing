@@ -1,5 +1,7 @@
 # Drawing
 
+[Input](https://symbolfigures.io/drawing/ex/2_thirdstudy.png) / [Output](https://symbolfigures.io/drawing/ex/12_bezier.mp4)
+
 Scripts that 
 - prepare scanned line drawings as a dataset for deep learning.
 - generate immitation images from a trained model.
@@ -10,7 +12,19 @@ Two compositional styles are supported:
 - **Spec**: as demonstrated by my Second Study, each page has specimens roughly arranged on a grid, and have vertical and horizontal axes of symmetry. <sup>[1](https://symbolfigures.io/drawing/ex/1_secondstudy.png)</sup>
 - **Blob**: as demonstrated by my Third Study, each page is a continuous and asymmetrical blob of shapes with no apparent orientation. <sup>[2](https://symbolfigures.io/drawing/ex/2_thirdstudy.png)</sup>
 
-The GAN in [train/](train/) is based on an implementation by Brad Klingensmith available in his excellent [Udemy course](https://www.udemy.com/course/high-resolution-generative-adversarial-networks), which is in turn based on [ProGAN](https://arxiv.org/abs/1710.10196) with improvements from [StyleGAN2](https://arxiv.org/abs/1912.04958). I wrote the scripts below, and any others I only edited.
+The GAN is based on an implementation by Brad Klingensmith available in his excellent [Udemy course](https://www.udemy.com/course/high-resolution-generative-adversarial-networks), which is in turn based on [ProGAN](https://github.com/tkarras/progressive_growing_of_gans) with improvements from [StyleGAN2](https://github.com/NVlabs/stylegan2).
+
+*Copyright notice: While the scripts listed below were written by me, I've also included a version of the GAN for functionality. Therefore the terms of use are subject to the licenses of their respective owners.<sup>[P](https://github.com/tkarras/progressive_growing_of_gans/blob/master/LICENSE.txt)/[S](https://github.com/NVlabs/stylegan2/blob/master/LICENSE.txt)</sup> This is for non-commercial use only.*
+
+The following models are available for inference or fine-tuning:
+
+| Name                        | Description                                                | HuggingFace repo                                                                            | License                         |
+| --------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------- |
+| `secondstudy_300_256`       | Second Study, 300 dpi, 256x256 px                  | [symbolfigures/secondstudy_300_256](https://huggingface.co/symbolfigures/secondstudy_300_256)       | [CC BY-NC 4.0](LICENSE.txt)     |
+| `thirdstudy_300_1024`       | Third Study, 300 dpi, 1024x1024 px                 | [symbolfigures/thirdstudy_300_1024](https://huggingface.co/symbolfigures/thirdstudy_300_1024)       | [CC BY-NC 4.0](LICENSE.txt)     |
+| `thirdstudy_600_1024`       | Third Study, 600 dpi, 1024x1024 px                 | [symbolfigures/thirdstudy_600_1024](https://huggingface.co/symbolfigures/thirdstudy_600_1024)       | [CC BY-NC 4.0](LICENSE.txt)     |
+| `thirdstudy_1200_1024`      | Third Study, 1200 dpi, 1024x1024 px                | [symbolfigures/thirdstudy_1200_1024](https://huggingface.co/symbolfigures/thirdstudy_1200_1024)     | [CC BY-NC 4.0](LICENSE.txt)     |
+| `thirdstudy_300_1024_c5`    | Third Study, 300 dpi, 1024x1024 px, color #5       | [symbolfigures/thirdstudy_300_1024_c5](https://huggingface.co/symbolfigures/thirdstudy_300_1024_c5) | [CC BY-NC 4.0](LICENSE.txt)     |
 
 ## Setup
 
@@ -40,7 +54,7 @@ Dissect each spec drawing into a set of **tiles** <sup>[3](https://symbolfigures
 ```
 python spec_tile.py \
     <dir_in> \
-	<resolution> \
+    <resolution> \
     --dir_out=... \
     --dir_out_grid=...
 ```
@@ -139,13 +153,13 @@ Construct a path through the model's latent space, according to a selected style
 - **phase**: Similar to **period**, but they all have the same period of 60 seconds, and instead vary by phase. The result is a steady tumbling motion. <sup>[17](https://symbolfigures.io/drawing/ex/17_phase.mp4)</sup> <sup>[18](https://symbolfigures.io/drawing/ex/18_phase_plot.png)</sup>
 ```
 python path.py \
-	<model> \
-	<style> \
-	--dir_out=... \
-	--count=... \
-	--segments=... \
-	--frames=... \
-	--bitloop=...
+    <model> \
+    <style> \
+    --dir_out=... \
+    --count=... \
+    --segments=... \
+    --frames=... \
+    --bitloop=...
 ```
 
 #### [rgba.py](gen/rgba.py)  
@@ -203,6 +217,8 @@ python blend.py \
     <dir_in> \
     --dir_out=...
 ```
+
+To produce colored animation, one can generate a set of random images, apply fill and blend, and then train a new model using the images as a synthetic dataset. <sup>[23](https://symbolfigures.io/drawing/ex/23_color_animation.mp4)</sup>
 
 `cd ..`
 
