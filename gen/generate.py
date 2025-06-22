@@ -20,18 +20,19 @@ def get_dir_out_path(
 	count=None,
 	segments=None,
 	frames=None,
-	bs=None):
+	bitloop=None,
+	seconds=None):
 	instance = f'{int(time.time())}'
 	if style == 'random':
-		subdir = f'{style}_{count}'
+		subdir = f'{style}_c{count}'
 	if style == 'bezier':
 		subdir = f'{style}_s{segments}_f{frames}'
 	if style == 'bitloop':
-		subdir = f'{style}_{bs}'
+		subdir = f'{style}_b{bitloop}'
 	if style == 'period':
-		subdir = f'{style}'
+		subdir = f'{style}_s{seconds}'
 	if style == 'phase':
-		subdir = f'{style}'
+		subdir = f'{style}_s{seconds}'
 	dir_out = f'{dir_out}/{subdir}/{instance}'
 	os.makedirs(dir_out, exist_ok=True)
 	return dir_out

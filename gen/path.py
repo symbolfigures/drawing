@@ -136,9 +136,9 @@ def phase(generator, dir_out, sec=60, fps=30):
 	generate(generator, np.transpose(waves), dir_out)
 
 
-def main(model, dir_out, style, count, segments, frames, bs):
+def main(model, dir_out, style, count, segments, frames, bs, seconds):
 	generator = load_generator(model)
-	dir_out = get_dir_out_path(dir_out, style, count, segments, frames, bs)
+	dir_out = get_dir_out_path(dir_out, style, count, segments, frames, bs, seconds)
 	os.makedirs(dir_out, exist_ok=True)
 	if style == 'random':
 		random(generator, dir_out, count)
@@ -147,9 +147,9 @@ def main(model, dir_out, style, count, segments, frames, bs):
 	if style == 'bitloop':
 		bitloop(generator, dir_out, bs)
 	if style == 'period':
-		period(generator, dir_out)
+		period(generator, dir_out, seconds)
 	if style == 'phase':
-		phase(generator, dir_out)
+		phase(generator, dir_out, seconds)
 
 
 if __name__ == '__main__':
@@ -188,9 +188,14 @@ if __name__ == '__main__':
 		type=str,
 		default='1100',
 		help='for example, 00110011')
+	parser.add_argument(
+		'--seconds',
+		type=int,
+		default=60,
+		help='period and phase: how long an animation would last at 30 fps')
 
 	args = parser.parse_args()
-	main(args.model, args.dir_out, args.style, args.count, args.segments, args.frames, args.bitloop)
+	main(args.model, args.dir_out, args.style, args.count, args.segments, args.frames, args.bitloop, args.seconds)
 
 
 
