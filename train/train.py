@@ -37,7 +37,7 @@ def make_real_image_dataset(
 class TrainingOptions:
 	def __init__(
 			self,
-			real_images_file_pattern: str,
+			dataset_file_pattern: str,
 			resolution: int,
 			replica_batch_size: int,
 			epoch_sample_count: int = 1024 * 16,
@@ -50,7 +50,7 @@ class TrainingOptions:
 		assert epoch_sample_count % replica_batch_size == 0
 		assert total_sample_count % epoch_sample_count == 0
 
-		self.real_images_file_pattern = real_images_file_pattern
+		self.dataset_file_pattern = dataset_file_pattern
 		self.resolution = resolution
 		self.replica_batch_size = replica_batch_size
 		self.epoch_sample_count = epoch_sample_count
@@ -132,7 +132,7 @@ def train(
 	image_dataset = strategy.experimental_distribute_dataset(
 		make_real_image_dataset(
 			global_batch_size,
-			file_pattern=options.real_images_file_pattern))
+			file_pattern=options.dataset_file_pattern))
 
 	state.epoch_i = training_loop(
 		checkpoint_callback,
