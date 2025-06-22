@@ -18,7 +18,7 @@ The GAN is based on an implementation by Brad Klingensmith available in his exce
 
 The following models are available for inference or fine-tuning:
 
-| Name                        | Description                                                | HuggingFace repo                                                                            | License                         |
+| Name                        | Description                                                | HuggingFace repository                                                                      | License                         |
 | --------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------- |
 | `secondstudy_300_256`       | Second Study, 300 dpi, 256x256 px                  | [symbolfigures/secondstudy_300_256](https://huggingface.co/symbolfigures/secondstudy_300_256)       | [CC BY-NC 4.0](LICENSE.txt)     |
 | `thirdstudy_300_1024`       | Third Study, 300 dpi, 1024x1024 px                 | [symbolfigures/thirdstudy_300_1024](https://huggingface.co/symbolfigures/thirdstudy_300_1024)       | [CC BY-NC 4.0](LICENSE.txt)     |
